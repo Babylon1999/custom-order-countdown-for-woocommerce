@@ -1,0 +1,28 @@
+#cocfw_delivery_message {
+	font-weight: 600;
+	line-height: 22px;
+	text-align: center;
+	color: #262626;
+}
+.cocfw_countdown-circles {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+.cocfw_circle {
+	border-radius: 50%;
+	border: 1px solid #FF5733;
+	width: 50px;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #FF5733;
+	font-size: 1.5em;
+}
+.cocfw_wrap {
+	text-align: center;
+}
+.cocfw_wrap span {
+	display: block;
+}
