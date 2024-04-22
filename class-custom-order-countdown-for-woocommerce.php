@@ -41,7 +41,7 @@ class Custom_Order_Countdown_For_WooCommerce {
 			1
 		);
 
-		add_action( 'woocommerce_before_add_to_cart_quantity', array( $this, 'display_delivery_message' ) );
+		add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'display_delivery_message' ) );
 	}
 
 	public static function init() {
