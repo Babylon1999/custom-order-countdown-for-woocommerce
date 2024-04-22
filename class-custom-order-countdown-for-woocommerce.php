@@ -200,7 +200,7 @@ class Custom_Order_Countdown_For_WooCommerce {
 		$current_date = date_i18n( 'Y-m-d' );
 
 		// This is for the html template.
-		$delivery_message = $current_time < $store_close_time ? $next_day_map[ $current_day ][ $store_close_time ] : $next_day_map[ $current_day ]['after'];
+		$calulated_day = $current_time < $store_close_time ? $next_day_map[ $current_day ][ $store_close_time ] : $next_day_map[ $current_day ]['after'];
 
 		$current_timestamp = current_time( 'timestamp' );
 		// Here's the magic we need for the JS counter.
@@ -215,7 +215,7 @@ class Custom_Order_Countdown_For_WooCommerce {
 		$countdown = $date_time_next_delivery - $current_timestamp;
 
 		if ( get_option( 'cocfw_render' ) === 'yes' ) {
-			include plugin_dir_path( __DIR__ ) . 'custom-order-countdown-for-woocommerce/templates/counter-template.php';
+			include plugin_dir_path( __DIR__ ) . 'custom-order-countdown-for-woocommerce-main/templates/counter-template.php';
 			wp_enqueue_style( 'custom-order-countdown-for-woocommerce', plugin_dir_url( __FILE__ ) . 'css/countdown-counter.css', array(), '1.0.0', 'all' );
 
 			wc_enqueue_js(
