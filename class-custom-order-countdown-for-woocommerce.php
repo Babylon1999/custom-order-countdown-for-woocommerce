@@ -26,6 +26,9 @@ register_activation_hook( __FILE__, array( 'Custom_Order_Countdown_For_WooCommer
 
 class Custom_Order_Countdown_For_WooCommerce {
 
+
+
+
 	public function __construct() {
 		add_filter(
 			'woocommerce_get_settings_products',
@@ -102,10 +105,10 @@ class Custom_Order_Countdown_For_WooCommerce {
 		$days = array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' );
 
 		$custom_settings[] =
-		array(
-			'name' => 'Custom Shipping Countdown Plugin Settings',
-			'type' => 'title',
-		);
+			array(
+				'name' => 'Custom Shipping Countdown Plugin Settings',
+				'type' => 'title',
+			);
 
 		$custom_settings[] = array(
 			'title'   => sprintf( __( 'Enable/Disable the countdown', 'woocommerce' ) ),
@@ -204,6 +207,7 @@ class Custom_Order_Countdown_For_WooCommerce {
 
 		$current_timestamp = current_time( 'timestamp' );
 		// Here's the magic we need for the JS counter.
+
 		if ( $current_time < $store_close_time ) {
 			$delivery_date_string = $current_date . ' ' . $store_close_time;
 		} else {
@@ -215,6 +219,18 @@ class Custom_Order_Countdown_For_WooCommerce {
 		$countdown = $date_time_next_delivery - $current_timestamp;
 
 		if ( get_option( 'cocfw_render' ) === 'yes' ) {
+
+			// This is a spescial case for weekends, the client wants a fixed message for the weekend with no counter.
+
+			$days_where_no_delivery = array( 'Saturday', 'Sunday', 'Monday' );
+			if ( ( true === in_array( $current_day, $days_where_no_delivery, true ) && $store_close_time > $current_time )
+				|| ( 'Friday' === $current_day && $store_close_time < $current_time ) || ( 'Friday' === $current_day && $store_close_time > $current_time )
+			) {
+				include plugin_dir_path( __DIR__ ) . 'custom-order-countdown-for-woocommerce-main/templates/weekend-template.php';
+				wp_enqueue_style( 'custom-order-countdown-for-woocommerce', plugin_dir_url( __FILE__ ) . 'css/countdown-counter.css', array(), '1.0.0', 'all' );
+				return;
+			}
+
 			include plugin_dir_path( __DIR__ ) . 'custom-order-countdown-for-woocommerce-main/templates/counter-template.php';
 			wp_enqueue_style( 'custom-order-countdown-for-woocommerce', plugin_dir_url( __FILE__ ) . 'css/countdown-counter.css', array(), '1.0.0', 'all' );
 
