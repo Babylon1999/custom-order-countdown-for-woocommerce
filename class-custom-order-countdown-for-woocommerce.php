@@ -10,8 +10,6 @@
  * Text Domain: custom-order-countdown-for-woocommerce
  */
 
-use AutomateWoo\Fields\Date;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
